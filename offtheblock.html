@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Off The Block</title>
+    <style>
+        @keyframes typing {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a1a, #2a2a2a, #3a3a3a);
+            background-size: 400% 400%;
+            animation: gradientBackground 10s ease infinite;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .logo-top {
+            position: absolute;
+            top: 40px;
+            width: 90px;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .menu-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .menu-button div {
+            width: 30px;
+            height: 5px;
+            background-color: white;
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding-top: 60px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 15px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .menu.active {
+            right: 0;
+        }
+
+        .logo-center {
+            width: 500px;
+            height: auto;
+            animation: pulse 2s infinite;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid white;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://i.imgur.com/GjREH7x.png" alt="Off The Block Logo" class="logo-top">
+    
+    <div class="menu-button" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    
+    <div class="menu" id="menu">
+        <a href="https://instagram.com/offtheblxck" target="_blank">Instagram</a>
+    </div>
+    
+    <img src="https://i.imgur.com/sJOMkVA.png" alt="Thinking Outside The Block" class="logo-center">
+    
+    <div class="footer" id="footer"></div>
+    
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
+
+        function typeEffect(element, text, speed) {
+            let index = 0;
+            let isDeleting = false;
+
+            function type() {
+                element.innerHTML = text.substring(0, index) + (index % 2 === 0 ? "|" : "");
+
+                if (!isDeleting && index < text.length) {
+                    index++;
+                } else if (isDeleting && index > 0) {
+                    index--;
+                }
+
+                if (index === text.length) {
+                    setTimeout(() => isDeleting = true, 1000);
+                } else if (index === 0) {
+                    isDeleting = false;
+                }
+
+                setTimeout(type, isDeleting ? speed / 2 : speed);
+            }
+
+            type();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const footer = document.getElementById("footer");
+            typeEffect(footer, "© 2025, OFF THE BLOCK", 100);
+        });
+    </script>
+</body>
+</html>
